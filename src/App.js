@@ -1,4 +1,4 @@
-import React, { useReducer } from "react";
+import React, { useReducer, useState } from "react";
 import { Box, Flex, Button, Heading, Card } from "rebass";
 import "./App.scss";
 import { Input } from "@rebass/forms";
@@ -8,7 +8,7 @@ export const App = () => {
     const proArray = [...state];
     switch (action.type) {
       case "increment":
-        proArray.push({ text: "", points: '"' });
+        proArray.push({ text: "", points: "" });
         return proArray;
       case "decrement":
         proArray.pop();
@@ -20,7 +20,7 @@ export const App = () => {
     const consArray = [...state];
     switch (action.type) {
       case "increment":
-        return consArray.push({ text: "", points: '"' });
+        return consArray.push({ text: "", points: "" });
       case "decrement":
         return consArray.pop();
       default:
@@ -28,9 +28,11 @@ export const App = () => {
     }
   };
 
-  const initialState = [{ text: "", points: "" }];
-  const [pros, dispatchPros] = useReducer(reducerPros, initialState);
-  const [cons, dispatchCons] = useReducer(reducerCons, initialState);
+  const prosInitialState = [{ text: "", points: "" }];
+  const consInitialState = [{ text: "", points: "" }];
+  const [pros, dispatchPros] = useReducer(reducerPros, prosInitialState);
+  const [cons, dispatchCons] = useReducer(reducerCons, consInitialState);
+  const [result, setResult] = useState(0);
 
   return (
     <>
@@ -41,7 +43,7 @@ export const App = () => {
       </div>
       <Flex>
         <Box p={2} fontSize={4} width={1} color="black">
-          <Card width={1} minHeight={500}>
+          <Card width={1} minHeight={400}>
             <Flex>
               <Button
                 mx={5}
@@ -61,18 +63,25 @@ export const App = () => {
               </Button>
             </Flex>
             {pros.map((value, index) => {
-              return <div key={index}>index</div>;
+              return (
+                <div key={index}>
+                  <Flex>
+                    <Input width={1} m={1} value={value.text} />
+                    <Input width={1/2} m={1} value={value.points} />
+                  </Flex>
+                </div>
+              );
             })}
           </Card>
         </Box>
         <Box p={2} fontSize={4} width={1} color="black">
-          <Card width={1} minHeight={500}>
+          <Card width={1} minHeight={400}>
             <Flex>
               <Button
                 mx={5}
                 className="pointer"
                 bg="secondary"
-                onClick={() => dispatchPros({ type: "increment" })}
+                onClick={() => dispatchCons({ type: "increment" })}
               >
                 Add Cons
               </Button>
@@ -80,7 +89,7 @@ export const App = () => {
                 mx={5}
                 className="pointer"
                 bg="primary"
-                onClick={() => dispatchPros({ type: "decrement" })}
+                onClick={() => dispatchCons({ type: "decrement" })}
               >
                 Remove Cons
               </Button>
@@ -88,6 +97,11 @@ export const App = () => {
           </Card>
         </Box>
       </Flex>
+      <div className="container">
+        <Heading fontSize={[4, 5, 6]} color="primary">
+          Result : {result}
+        </Heading>
+      </div>
     </>
   );
 };
