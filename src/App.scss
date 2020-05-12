@@ -1,0 +1,15 @@
+body {
+  margin: 0;
+}
+
+.wrapper {
+  min-height: 100vh;
+  min-width: 100vw;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
