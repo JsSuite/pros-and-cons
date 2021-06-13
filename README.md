@@ -1,4 +1,4 @@
-# 🔥Pros-and-cons🔥
+# 🔥Pros-and-cons🔥 (DEPRECATED)
 
 ****
 
